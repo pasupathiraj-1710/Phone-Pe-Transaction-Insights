@@ -7,6 +7,32 @@ from streamlit_lottie import st_lottie
 import json
 import plotly.express as px
 
+st.markdown("""
+    <style>
+    /* Main page background */
+    [data-testid="stAppViewContainer"] {
+        background-color: #F4F7FB;
+        color: #1E1E1E;
+    }
+
+    /* Sidebar background */
+    [data-testid="stSidebar"] {
+        background-color: #E8EEF5;
+        color: #1E1E1E;
+    }
+
+    /* Transparent header */
+    [data-testid="stHeader"] {
+        background-color: rgba(0,0,0,0);
+    }
+
+    /* Force text color */
+    html, body, [class*="css"]  {
+        color: #1E1E1E !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 st.set_page_config(page_title="PhonePe Transaction Insights", layout="wide")
 st.markdown("<h1 style='color:#40E0D0;'>PhonePe Transaction Insights", unsafe_allow_html=True)
 
@@ -833,4 +859,5 @@ with tab2:
         show_case_study_4()
     elif selected_question == question_list[4]:
         show_case_study_5()
+
 
