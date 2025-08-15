@@ -118,26 +118,7 @@ with tab1:
                WHERE Years = %s AND Quarter = %s
                GROUP BY States"""
         return pd.read_sql(q, engine, params=(year, quarter))
-
-    @st.cache_data
-    def get_top_postal_codes(year, quarter, state=None):
-        if state and state != "All India":
-            q = """SELECT Pincodes, SUM(Transaction_amount) AS Amount
-                   FROM top_transaction
-                   WHERE Years = %s AND Quarter = %s AND States = %s
-                   GROUP BY Pincodes
-                   ORDER BY Amount DESC
-                   LIMIT 10"""
-            return pd.read_sql(q, engine, params=(year, quarter, state))
-        else:
-            q = """SELECT Pincodes, SUM(Transaction_amount) AS Amount
-                   FROM top_transaction
-                   WHERE Years = %s AND Quarter = %s
-                   GROUP BY Pincodes
-                   ORDER BY Amount DESC
-                   LIMIT 10"""
-            return pd.read_sql(q, engine, params=(year, quarter))
-
+        
     # DATA INSERT IN MAP 
     if data_type == "Transactions":
         state_values, _ = get_map_data(year, quarter)
@@ -433,7 +414,7 @@ with tab2:
                 WHERE Years = %s AND Quarter = %s
                 GROUP BY Brands
                 ORDER BY TotalCount DESC
-                LIMIT 10
+                LIMIT 15
             """
             params = (selected_year, selected_quarter)
         else:
@@ -443,7 +424,7 @@ with tab2:
                 WHERE Years = %s AND Quarter = %s AND States = %s
                 GROUP BY Brands
                 ORDER BY TotalCount DESC
-                LIMIT 10
+                LIMIT 15
             """
             params = (selected_year, selected_quarter, selected_state)
 
@@ -599,7 +580,7 @@ with tab2:
             WHERE Years = %s AND Quarter = %s 
             GROUP BY States 
             ORDER BY TransactionCount DESC 
-            LIMIT 10
+            LIMIT 15
         """
         top_df = pd.read_sql(top_query, engine, params=(cs3_year, cs3_quarter))
         st.markdown("###  Top 10 States by Insurance Adoption")
@@ -609,7 +590,7 @@ with tab2:
             y='State',
             orientation='h',
             color='TransactionCount',
-            title='Top 10 States by Insurance Transactions'
+            title='Top  States by Insurance Transactions'
         )
         st.plotly_chart(fig_bar, use_container_width=True)
 
@@ -822,7 +803,7 @@ with tab2:
             x="State",
             y="EngagementRatio",
             color="EngagementRatio",
-            title="Top 10 States by App Opens per Registered User"
+            title="Top States by App Opens per Registered User"
         )
         st.plotly_chart(fig_bar, use_container_width=True)
 
