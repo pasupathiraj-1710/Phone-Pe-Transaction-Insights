@@ -7,8 +7,6 @@ from streamlit_lottie import st_lottie
 import json
 import plotly.express as px
 
-
-# ---------- CONFIG ----------
 st.set_page_config(page_title="PhonePe Transaction Insights", layout="wide")
 st.markdown("<h1 style='color:#40E0D0;'>PhonePe Transaction Insights", unsafe_allow_html=True)
 
@@ -853,4 +851,5 @@ with tab2:
     elif selected_question == question_list[3]:
         show_case_study_4()
     elif selected_question == question_list[4]:
+
         show_case_study_5()
