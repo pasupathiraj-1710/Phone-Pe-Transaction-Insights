@@ -193,7 +193,7 @@ with tab1:
         st.pydeck_chart(pdk.Deck(layers=[layer], initial_view_state=view_state, tooltip={"text": "{tooltip}"}))
 
     with col2:
-        st.markdown("#### Transactions" if data_type == "Transactions" else "#### 👥 User Insights")
+        st.markdown("#### Transactions" if data_type == "Transactions" else "####  User Insights")
 
         if data_type == "Transactions":
             st.markdown("##### Transaction Summary")
@@ -334,8 +334,8 @@ with tab2:
                               title="Transaction Amount by Payment Method")
             st.plotly_chart(fig_pie2, use_container_width=True)
 
-        # Top 10 States
-        st.markdown("### 🔝 Top 10 States by Transaction Amount")
+        # Top  States
+        st.markdown("###  Top  States by Transaction Amount")
         if selected_state == "All India":
             top_states_df = map_df.sort_values("TotalAmount", ascending=False).head(10)
         else:
@@ -425,7 +425,7 @@ with tab2:
             selected_state = st.selectbox(" State", states_list, key="cs2_state")
 
         # Top Device Brands
-        st.markdown("### Top 10 Device Brands by User Count")
+        st.markdown("### Top  Device Brands by User Count")
         if selected_state == "All India":
             brand_query = """
                 SELECT Brands, SUM(Transaction_count) AS TotalCount
@@ -455,7 +455,7 @@ with tab2:
                 y="TotalCount",
                 color="Brands",
                 text_auto=".2s",
-                title=f"Top 10 Brands - Q{selected_quarter} {selected_year} ({selected_state})"
+                title=f"Top  Brands - Q{selected_quarter} {selected_year} ({selected_state})"
             )
             st.plotly_chart(fig_bar, use_container_width=True)
         else:
@@ -592,7 +592,7 @@ with tab2:
         fig_map.update_geos(fitbounds="locations", visible=False)
         st.plotly_chart(fig_map, use_container_width=True)
 
-        # Top 10 States by Insurance
+        # Top States by Insurance
         top_query = """
             SELECT States AS State, SUM(Transaction_count) AS TransactionCount 
             FROM top_insurance 
@@ -683,7 +683,7 @@ with tab2:
         """
         map_df = pd.read_sql(map_query, engine, params=(cs4_year, cs4_quarter))
         map_df["TotalAmount"] = map_df["TotalAmount"].astype(float)
-        st.markdown("### 🗺️ Market Coverage by State (Transaction Amount)")
+        st.markdown("###  Market Coverage by State (Transaction Amount)")
         fig_map = px.choropleth(
             map_df,
             geojson=geojson,
@@ -728,7 +728,7 @@ with tab2:
         bubble_df = pd.read_sql(bubble_query, engine, params=(cs4_year, cs4_quarter))
         bubble_df["TotalAmount"] = bubble_df["TotalAmount"].astype(float)
         bubble_df["TransactionCount"] = bubble_df["TransactionCount"].astype(int)
-        st.markdown("### 💥 Market Size vs Frequency (by State)")
+        st.markdown("### Market Size vs Frequency (by State)")
         fig_bubble = px.scatter(
             bubble_df,
             x="TransactionCount",
