@@ -832,5 +832,5 @@ with tab2:
     elif selected_question == question_list[3]:
         show_case_study_4()
     elif selected_question == question_list[4]:
-
         show_case_study_5()
+
