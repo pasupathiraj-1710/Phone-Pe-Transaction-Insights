@@ -224,7 +224,7 @@ with tab1:
             col_districts, col_states, col_pins = st.columns(3)
 
             with col_districts:
-                st.markdown("##### Top 10 Districts")
+                st.markdown("##### Top Districts")
                 if selected_region == "All India":
                     top_districts_df = get_top_districts(year, quarter)
                 else:
@@ -234,7 +234,7 @@ with tab1:
                     st.markdown(f"- **{row['District']}** : {row['Amount']}")
 
             with col_states:
-                st.markdown("#####  Top 10 States")
+                st.markdown("#####  Top  States")
                 _, state_df = get_map_data(year, quarter)
                 top_states_df = state_df.sort_values("Total", ascending=False).head(10)
                 top_states_df["Total"] = top_states_df["Total"].apply(lambda x: f"₹{x:,.0f}")
@@ -260,7 +260,7 @@ with tab1:
                     st.metric(" App Opens", f"{state_open:,}")
                 else:
                     st.warning("No user data available for the selected region.")
-            st.markdown("######  Top 10 States by Total Users")
+            st.markdown("######  Top States by Total Users")
             df_users["Total"] = df_users["Registered"] + df_users["Opens"]
             df_top_states = df_users.sort_values("Total", ascending=False).head(10)
             for idx, row in df_top_states.iterrows():
@@ -281,7 +281,7 @@ with tab2:
     ]
     selected_question = st.selectbox("Select a Case Study", question_list, key="business_case_study_selector")
 
-    # CASE STUDY 1: Decoding Transaction Dynamics on PhonePe
+    # CASE STUDY 1:
     def show_case_study_1():
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -312,7 +312,7 @@ with tab2:
         fig_map.update_geos(fitbounds="locations", visible=False)
         st.plotly_chart(fig_map, use_container_width=True)
 
-        # Payment Method Popularity Pie Charts
+        # Payment Pie Charts
         st.markdown("###  Payment Method Popularity")
         if selected_state == "All India":
             pie_query = """
@@ -352,7 +352,7 @@ with tab2:
                          text_auto=".2s", title="Top Transaction States")
         st.plotly_chart(fig_bar, use_container_width=True)
 
-        # Category Breakdown Line Chart
+        #  Line Chart
         st.markdown("###  Transaction Category Breakdown by State")
         if selected_state == "All India":
             breakdown_query = """
@@ -503,7 +503,7 @@ with tab2:
         else:
             st.warning("No user data available for selected filters.")
 
-        # Brand Share Pie Chart
+        # Brand  Pie Chart
         st.markdown("###  Device Brand Market Share")
         if selected_state == "All India":
             pie_query = """
@@ -534,7 +534,7 @@ with tab2:
         else:
             st.warning("No brand share data available for selected filters.")
 
-        # Trend Line of Brand Usage
+        # Line of Brand Usage
         st.markdown("###  Brand Usage Trend Over Quarters")
         if selected_state == "All India":
             trend_query = """
@@ -569,7 +569,7 @@ with tab2:
             st.warning("No brand trend data available.")
     # CASE STUDY 3
     def show_case_study_3():
-        # Unique keys to prevent widget conflicts
+
         col1, col2, col3 = st.columns(3)
         with col1:
             cs3_year = st.selectbox(" Year", list(range(2018, 2025)), key="cs3_year_unique")
@@ -578,7 +578,7 @@ with tab2:
         with col3:
             cs3_state = st.selectbox(" State", states_list, key="cs3_state_unique")
 
-        # Insurance Transactions Choropleth Map
+        # Insurance  Choropleth Map
         map_query = """
             SELECT States AS State, SUM(Transaction_count) AS TransactionCount, SUM(Transaction_amount) AS TotalAmount 
             FROM map_insurance 
@@ -599,7 +599,7 @@ with tab2:
         fig_map.update_geos(fitbounds="locations", visible=False)
         st.plotly_chart(fig_map, use_container_width=True)
 
-        # Top States by Insurance
+        #  States Insurance
         top_query = """
             SELECT States AS State, SUM(Transaction_count) AS TransactionCount 
             FROM top_insurance 
@@ -620,7 +620,7 @@ with tab2:
         )
         st.plotly_chart(fig_bar, use_container_width=True)
 
-        # Quarterly Insurance Trend
+        # Quarter Insurance
         trend_query = """
             SELECT Quarter, SUM(Insurance_count) AS TransactionCount 
             FROM aggregated_insurance 
@@ -639,7 +639,7 @@ with tab2:
         )
         st.plotly_chart(fig_line, use_container_width=True)
 
-        # Bubble Plot: Insurance vs Registered Users
+        # Insurance vs Registered Users
         user_query = """
             SELECT States AS State, SUM(RegisteredUser) AS RegisteredUsers 
             FROM map_user 
@@ -681,7 +681,7 @@ with tab2:
         with col3:
             cs4_state = st.selectbox(" State", states_list, key="cs4_state_unique")
 
-        # --- Choropleth Map ---
+        # Choropleth Map 
         map_query = """
             SELECT States AS State, SUM(Transaction_amount) AS TotalAmount 
             FROM map_transaction 
@@ -703,7 +703,7 @@ with tab2:
         fig_map.update_geos(fitbounds="locations", visible=False)
         st.plotly_chart(fig_map, use_container_width=True)
 
-        # --- Pan-India Quarterly Growth Trend ---
+        # all over India Quarter Growth T
         trend_query = """
             SELECT Years, Quarter, SUM(Transaction_amount) AS TotalAmount 
             FROM aggregated_transaction 
@@ -725,7 +725,7 @@ with tab2:
         )
         st.plotly_chart(fig_line, use_container_width=True)
 
-        # --- Bubble Plot: Volume vs Count ---
+        #  Volume vs Count ---
         bubble_query = """
             SELECT States AS State, SUM(Transaction_amount) AS TotalAmount, SUM(Transaction_count) AS TransactionCount 
             FROM map_transaction 
@@ -762,7 +762,7 @@ with tab2:
         with col3:
             cs5_state = st.selectbox(" State", states_list, key="cs5_state")
 
-        # Choropleth Map: Registered Users by State
+        #  Registered Users by State Map
         st.markdown("###  Registered Users Distribution")
         user_map_query = """
             SELECT States AS State, SUM(RegisteredUser) AS TotalRegistered
@@ -833,7 +833,7 @@ with tab2:
         )
         st.plotly_chart(fig_bar, use_container_width=True)
 
-        # Bubble Plot: Growth Potential
+        # plot-Growth Potential
         st.markdown("###  Growth Strategy: Users vs Engagement")
         bubble_df = ratio_df.copy()
         fig_bubble = px.scatter(
@@ -859,5 +859,6 @@ with tab2:
         show_case_study_4()
     elif selected_question == question_list[4]:
         show_case_study_5()
+
 
 
