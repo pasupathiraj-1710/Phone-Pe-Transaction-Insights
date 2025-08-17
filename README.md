@@ -15,4 +15,6 @@ Features:
 5.Insights Generation:
     Derivation of actionable insights regarding market trends, user behavior, and potential areas for business growth or improvement.
 6Technologies Used:
-        Python, Pandas (for data manipulation), Plotly / Matplotlib / Seaborn (for data visualization), Streamlit / Flask (for web application/dashboard), and SQL (if a database is used for data storage).
+        Python, Pandas (for data manipulation), Plotly / Matplotlib / Seaborn (for data visualization), Streamlit / Flask (for web application/dashboard), and SQL (if a database is used for data storage)
+
+        
